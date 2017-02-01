@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,900,400italic|Source+Code+Pro:400' rel='stylesheet' type='text/css'>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+    <script type='text/javascript' src='sheetsee.js'></script>
+    <link rel='stylesheet' type='text/css' href='style.css'>
+	<title>primaire</title>
+    <style>
+      #Pagination {border-top: 4px solid #bd2d0b; margin: 10px 0px; padding-top: 10px; display: inline-block;}
+      #Pagination a {cursor: pointer;}
+      .no-pag {color: #acacac; border: none;}
+      .no-pag:hover {color: #acacac;}
+      input {border: none; border-bottom: 1px solid #333;margin: 10px 0px; width: 200px; font-size: 16px; padding-bottom: 6px;}
+    </style>
+
+</head>
+<body>
+	<h3 style="padding-top: 0px; margin-bottom: 10px; margin-top: 0px">Les résultats par bureau de vote</h3>
+	<p>Nombre de voix obtenues pour chaque candidat.<br /><em>(si la case est vide, les résultats ne nous sont pas encore parvenus)</em></p>
+	<div id="container">
+	<input id="fullTableFilter" type="text" placeholder="Cherchez votre bureau..."></input>
+    <div id="fullTable"></div>
+    </div>
+
+<script id="fullTable_template" type="text/html">
+  <table>
+    <tr><th class="tHeader">Bureau</th><th class="tHeader">Manuel Valls</th><th class="tHeader">Benoît Hamon</th><th class="tHeader">Nuls & blancs</th></tr>
+      {{#rows}}
+        <tr><td>{{bureau}}</td><td>{{mv}}</td><td>{{bh}}</td><td>{{nuls}}</td></tr>
+      {{/rows}}
+  </table>
+</script>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    var URL = "1VyjAngwrcR_ey-gt3Ay8zJLH6JSECu2Wm1XocDPal3w"
+    Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true} )
+  })
+
+  function showInfo(data) {
+    var tableOptions = {"data": data, "pagination": 10, "tableDiv": "#fullTable", "filterDiv": "#fullTableFilter"}
+    Sheetsee.makeTable(tableOptions)
+    Sheetsee.initiateTableFilter(tableOptions)
+  }
+</script>
+</body>
+</html>
